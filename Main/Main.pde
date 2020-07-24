@@ -28,10 +28,12 @@ void draw() {
       rect(10 * cur + 10, 10, 5, numList[cur] * 2);
       cur++;
       BubbleSortFirst(numList);
-    } else {
       cur = LOG_SWAP;
+    } else {
+      cur = 0;
     }
   }
+  delay(25);
 }
 
 private boolean checkIfSorted(int numList[]) {
@@ -47,7 +49,7 @@ private boolean checkIfSorted(int numList[]) {
 
 private int[] BubbleSortFirst(int numList[]) {
   for (int i = 0; i < numList.length; i++) {
-    if (numList[i] >= numList[i+1] && i != 100) {
+    if (numList[i] > numList[i+1] && i != 100) {
       LOG_SWAP = i;
       int prev = numList[i];
       numList[i] = numList[i+1];
