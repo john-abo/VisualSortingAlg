@@ -4,12 +4,12 @@ int[] numList = new int[maxSize];
 
 void setup() {
   for(int i = 0; i < numList.length; i++){
-  
+     numList[i] = (int)random(100);
   }
 }
 
 void draw() {
-
+  
 }
 
 private void swap(int[] a, int b, int c) {
