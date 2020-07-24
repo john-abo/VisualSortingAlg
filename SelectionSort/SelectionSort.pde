@@ -1,4 +1,4 @@
-int maxSize = 100;
+int maxSize = 1000;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
@@ -15,8 +15,10 @@ void setup() {
     numList[i] = r;
   }
   frameRate(60);
-  //stroke(12);
+  noStroke();
   size(1000, 1000);
+  scale(1, -1);
+  translate(0, -height);
 }
 
 void draw() {
