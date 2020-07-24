@@ -22,6 +22,7 @@ void draw() {
  stroke(126);
  linePx+=2;
  }
+ linePx = 1;
  
 }
 
