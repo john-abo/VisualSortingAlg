@@ -9,11 +9,7 @@ void setup() {
 }
 
 void draw() {
-<<<<<<< HEAD
-  //This is a change
-=======
-
->>>>>>> parent of 7502e78... Update Main.pde
+  
 }
 
 private void swap(int[] a, int b, int c) {
