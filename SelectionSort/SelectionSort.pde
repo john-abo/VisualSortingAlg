@@ -1,4 +1,4 @@
-int maxSize = 100;
+int maxSize = 1000;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
@@ -14,7 +14,7 @@ void setup() {
     numList[i] = r;
   }
   frameRate(60);
-  stroke(12);
+  //stroke(12);
   size(1020, 500);
 }
 
@@ -23,19 +23,17 @@ void draw() {
 
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
-    rect(10 * i + 10, 10, 5, numList[i] * 2);
+    rect((width/numList.length) * i, 5, (width/numList.length), numList[i] * 4);
   }
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
-    println("Not sorted yet");
     if (cur < numList.length ) {
-      println("Cur is shorter than length");
       selectionSort(numList, cur);
       if (indexSwap >= 0) {
-        println("swapping");
         swap();
         fill(255, 0, 0);
-        rect(10 * indexSwap + 10, 10, 5, numList[cur] * 2);
-        rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
+        rect((width/numList.length) * cur, 5, (width/numList.length), numList[indexSwap] * 4);
+        rect((width/numList.length) * indexSwap, 5, (width/numList.length), numList[cur] * 4);
+        //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
       }
     }
   }
@@ -43,7 +41,7 @@ void draw() {
   println(cur);
   indexSwap = -1;
 
-  delay(100);
+  //delay(100);
 }
 
 /**
@@ -66,13 +64,11 @@ private boolean checkIfSorted(int numList[]) {
 private void selectionSort(int numList[], int startAt) {
   int lowest = numList[cur];
   for (int i = startAt; i < numList.length && cur < numList.length; i++) {
-    println(i);
     if (numList[i] < lowest) { //if i is not 100 and the current indexed value is greater then the next one they swap positions
       indexSwap = i; //logs the current index that needs to be swapped
       lowest = numList[i];
     }
   }
-  println("index: " + indexSwap);
 }
 
 private void swap() {
