@@ -8,7 +8,7 @@ int indexSwap = -1;
 void setup() {
   /*
   initial population of the array
-  **/
+   **/
   for (int i = 0; i < numList.length; i++) {
     int r = (int)random(0, 100);
     numList[i] = r;
@@ -26,22 +26,29 @@ void draw() {
     rect(10 * i + 10, 10, 5, numList[i] * 2);
   }
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
-    if (cur < numList.length) {
-      cur++;
+  println("Not sorted yet");
+    if (cur < numList.length ) {
+      println("Cur is shorter than length");
       selectionSort(numList, cur);
-    } else {
-      cur = 0; //resets the red rectangle to 0;
+      if (indexSwap >= 0) {
+        println("swapping");
+        swap();
+        fill(255, 0, 0);
+        rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+        rect(10 * indexSwap + 10, 10, 5, numList[indexSwap] + 2);
+      }
     }
   }
-  
-  
-  
-  delay(25);
+  cur++;
+  println(cur);
+  indexSwap = -1;
+
+  delay(100);
 }
 
 /**
-navigates through the array, and if it's good to go then it returns true
-*/
+ navigates through the array, and if it's good to go then it returns true
+ */
 private boolean checkIfSorted(int numList[]) {
   for (int i = 0; i < numList.length; i++) {
     if (i != 0) {
@@ -54,12 +61,24 @@ private boolean checkIfSorted(int numList[]) {
 }
 
 /**
-InsertionSort Algorithm
-*/
-private void selection(int numList[], int startAt) {
-  for (int i = 0; i < numList.length; i++) {
-    if (numList[i] > numList[i+1] && i != 100) { //if i is not 100 and the current indexed value is greater then the next one they swap positions
-      LOG_SWAP = i; //logs the current index that needs to be swapped
+ Selection Sort Algorithm
+ */
+private void selectionSort(int numList[], int startAt) {
+  int lowest = numList[cur];
+  for (int i = startAt; i < numList.length && cur < numList.length; i++) {
+    println(i);
+    if (numList[i] < lowest) { //if i is not 100 and the current indexed value is greater then the next one they swap positions
+      indexSwap = i; //logs the current index that needs to be swapped
+      lowest = numList[i];
     }
+  }
+  println("index: " + indexSwap);
+}
+
+private void swap() {
+  if (!(indexSwap < 0)) {
+    int temp = numList[cur];
+    numList[cur] = numList[indexSwap];
+    numList[indexSwap] = temp;
   }
 }

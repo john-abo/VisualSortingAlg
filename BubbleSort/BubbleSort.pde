@@ -39,7 +39,7 @@ void draw() {
       cur = 0; //resets the red rectangle to 0;
     }
   }
-  delay(0);
+  delay(1000);
 }
 
 /**
