@@ -2,7 +2,6 @@ int maxSize = 100;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
-int cur = 0;
 
 void setup() {
   for(int i = 0; i < numList.length; i++){
@@ -11,7 +10,7 @@ void setup() {
   }
   frameRate(60);
   stroke(12);
-  size(1020,500);
+  size(1000, 500);
   
 }
 
@@ -19,19 +18,11 @@ void draw() {
   background(255);
  
  for(int i = 0; i < numList.length; i++){
- fill(0, 0, 0);
- rect(10 * i + 10, 10, 5, numList[i] * 2);
+ rect(linePx, numList[i], 10, 0);
+ stroke(126);
+ linePx+=2;
  }
- 
- if(cur != numList.length){
- fill(255, 10, 10);
- rect(10 * cur + 10, 10, 5, numList[cur] * 2);
- cur++;
- fill(0, 0, 0);
- rect(10 * cur - 10, 10, 5, numList[cur-1] * 2);
- }else{
-  cur = 0; 
- }
+ linePx = 1;
  
 }
 
