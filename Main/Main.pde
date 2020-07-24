@@ -3,6 +3,7 @@ int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
 int cur = 0;
+int LOG_SWAP;
 
 void setup() {
   for(int i = 0; i < numList.length; i++){
@@ -22,24 +23,50 @@ void draw() {
  fill(0, 0, 0);
  rect(10 * i + 10, 10, 5, numList[i] * 2);
  }
- 
- if(cur != numList.length){
- fill(255, 10, 10);
- rect(10 * cur + 10, 10, 5, numList[cur] * 2);
- cur++;
- fill(0, 0, 0);
- rect(10 * cur - 10, 10, 5, numList[cur-1] * 2);
- }else{
-  cur = 0; 
+ if(checkIfSorted(numList) == false){ 
+   if(cur != numList.length){
+   fill(255, 10, 10);
+   rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+   cur++;
+   BubbleSortFirst(numList);
+   
+   }else{
+  cur = LOG_SWAP; 
+ }
  }
  
 }
 
-private void swap(int[] a, int b, int c) {
+private boolean checkIfSorted(int numList[]){
+  for(int i = 0; i < numList.length; i++){
+    if(i != 0){
+       if(numList[i-1] > numList[i]){
+       return false;
+       }
+     }
+   }
+   return true;
+}
+
+private int[] BubbleSortFirst(int numList[]){
+  for(int i = 0; i < numList.length; i++){
+   if(numList[i] >= numList[i+1] && i != 100){
+   LOG_SWAP = i;
+   int prev = numList[i];
+   numList[i] = numList[i+1];
+   numList[i+1] = prev;
+   return numList;
+   }
+  }
+  return numList;
+}
+
+/**private void swap(int[] a, int b, int c) {
     int d = a[b];
     a[b] = a[c];
     a[c] = d;
   }
+  
   
   public void selection(int[] sorting) {
     int[] sorted = sorting;
@@ -71,4 +98,4 @@ private void swap(int[] a, int b, int c) {
         swap(sorted, index, i);
       }
     }
-  }
+  }*/
