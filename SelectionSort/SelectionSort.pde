@@ -1,4 +1,4 @@
-int maxSize = 1000;
+int maxSize = 1350;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
@@ -16,7 +16,7 @@ void setup() {
   }
   frameRate(60);
   noStroke();
-  size(1000, 1000);
+  size(1350, 1000);
   scale(1, -1);
   translate(0, -height);
 }
