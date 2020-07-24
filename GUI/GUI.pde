@@ -7,11 +7,11 @@ Button BrickS;
 Button BubbleS;
 Button RESET;
  
-boolean SSclick = false;
-boolean ISclick = false;
-boolean BrickSclick = false;
-boolean BubbleSclick = false;
-boolean RESETclick = false;
+boolean SSclick = true;
+boolean ISclick = true;
+boolean BrickSclick = true;
+boolean BubbleSclick = true;
+boolean RESETclick = true;
 
 int maxSize = 100;
 int minSize = 1;
@@ -20,6 +20,8 @@ int[] numList = new int[maxSize];
 int cur = 0;
 int LOG_SWAP;
 int click;
+int indexSwap = -1;
+int mx = 2;
 void setup() {
   /*
   initial population of the array
@@ -72,6 +74,7 @@ void draw() {
     fill(0, 0, 0);
     rect(10 * i + 10, 10, 5, numList[i] * 2);
   }
+  
  if(ISclick == true){
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
     if (cur != numList.length) {
@@ -85,6 +88,64 @@ void draw() {
     }
   }
  }
+ 
+ if(SSclick == true){
+ if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
+    if (cur < numList.length ) {
+      selectionSort(numList, cur);
+      if (indexSwap >= 0) {
+        swap();
+        fill(255, 0, 0);
+        rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
+        rect(10 * indexSwap + 10, 10, 5, numList[cur] * 2);
+        //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
+      }
+    }
+  }
+  cur++;
+  indexSwap = -1;
+  
+ }
+ 
+ if(BrickSclick == true){
+  if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
+    if (cur != numList.length-1 && cur != 100) {
+      fill(255, 10, 10);
+      rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+      if(numList[cur] > numList[cur+1]){
+      BubbleSort(numList);
+      cur+=2;//moves over to the next 
+      }else{
+      cur+=2;//moves over to the next 
+      }
+    } else if(cur % 2 == 0){
+      //println(" 1 " + cur);
+      cur = 1; //resets the red rectangle to 1;
+   
+    } else{
+      //println(" 0 "+cur);
+      cur = 0;
+    }
+  }
+ }
+ 
+ if(BubbleSclick == true){
+   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
+    if (cur != numList.length-1) {
+      fill(255, 10, 10);
+      rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+      if(numList[cur] > numList[cur+1]){
+      BubbleSort(numList);
+      cur++;//moves over to the next 
+      }else{
+      cur++;//moves over to the next 
+      }
+    } else {
+      cur = 0; //resets the red rectangle to 0;
+    }
+   }
+ }
+ 
   pop();
   delay(25);
 }
@@ -119,10 +180,76 @@ private int[] InsertionSort(int numList[]) {
   return numList;
 }
 
-private void IS(){
+/**
+ Selection Sort Algorithm
+ */
+private void selectionSort(int numList[], int startAt) {
+  int lowest = numList[cur];
+  for (int i = startAt; i < numList.length && cur < numList.length; i++) {
+    if (numList[i] < lowest) { //if i is not 100 and the current indexed value is greater then the next one they swap positions
+      indexSwap = i; //logs the current index that needs to be swapped
+      lowest = numList[i];
+    }
+  }
+}
+
+/**
+Bubble Sort Algorithm
+*/
+private int[] BubbleSort(int numList[]) {
+ int c = numList[cur+1];
+ numList[cur+1] = numList[cur];
+ numList[cur] = c;
+  return numList;
+}
+
+private void swap() {
+  if (!(indexSwap < 0)) {
+    int temp = numList[cur];
+    numList[cur] = numList[indexSwap];
+    numList[indexSwap] = temp;
+  }
+}
+
+public void IS(){
 if(ISclick == false){
+   sortReset();
 ISclick = true; 
 }else{
   ISclick = false;
 }
+}
+
+public void SS(){
+if(SSclick == false){
+   sortReset();
+SSclick = true; 
+}else{
+ SSclick = false;
+}
+}
+
+public void BrickS(){
+if(BrickSclick == false){
+   sortReset();
+BrickSclick = true; 
+}else{
+ BrickSclick = false;
+}
+}
+
+public void BubbleS(){
+if(BubbleSclick == false){
+   sortReset();
+BubbleSclick = true; 
+}else{
+ BubbleSclick = false;
+}
+}
+
+public void sortReset(){
+ SSclick = true;
+ ISclick = true;
+BrickSclick = true;
+BubbleSclick = true;
 }
