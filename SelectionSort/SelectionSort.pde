@@ -4,19 +4,23 @@ int linePx = 1;
 int[] numList = new int[maxSize];
 int cur = 0;
 int indexSwap = -1;
-int mx = 2;
+int mx = 1;
 
 void setup() {
+  frameRate(60);
+  noStroke();
+  size(1350, 500);
+
+  maxSize = width;
+  numList = new int[maxSize];
+
   /*
   initial population of the array
    **/
   for (int i = 0; i < numList.length; i++) {
-    int r = (int)random(0, 100);
+    int r = (int)random(0, height);
     numList[i] = r;
   }
-  frameRate(60);
-  noStroke();
-  size(1350, 1000);
   scale(1, -1);
   translate(0, -height);
 }
@@ -26,7 +30,7 @@ void draw() {
 
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
-    rect((width/numList.length) * i, 500, (width/numList.length), numList[i] * mx);
+    rect((width/numList.length) * i, 0, (width/numList.length), numList[i] * mx);
   }
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
     if (cur < numList.length ) {
@@ -34,8 +38,8 @@ void draw() {
       if (indexSwap >= 0) {
         swap();
         fill(255, 0, 0);
-        rect((width/numList.length) * cur, 500, (width/numList.length), numList[indexSwap] * mx);
-        rect((width/numList.length) * indexSwap, 500, (width/numList.length), numList[cur] * mx);
+        rect((width/numList.length) * cur, 0, (width/numList.length), numList[indexSwap] * mx);
+        rect((width/numList.length) * indexSwap, 0, (width/numList.length), numList[cur] * mx);
         //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
       }
     }
@@ -43,7 +47,7 @@ void draw() {
   cur++;
   indexSwap = -1;
 
-  delay(25);
+  delay(0);
 }
 
 /**
