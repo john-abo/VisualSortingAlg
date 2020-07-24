@@ -1,10 +1,25 @@
+import controlP5.*;
+ 
+ControlP5 cp5;
+Button SS;
+Button IS;
+Button BrickS;
+Button BubbleS;
+Button RESET;
+ 
+boolean SSclick = false;
+boolean ISclick = false;
+boolean BrickSclick = false;
+boolean BubbleSclick = false;
+boolean RESETclick = false;
+
 int maxSize = 100;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
 int cur = 0;
 int LOG_SWAP;
-
+int click;
 void setup() {
   /*
   initial population of the array
@@ -13,6 +28,36 @@ void setup() {
     int r = (int)random(0, 100);
     numList[i] = r;
   }
+   cp5 = new ControlP5(this);
+  BrickS = cp5.addButton("BrickS")
+  .setValue(0)
+  .setPosition(0,0)
+  .setSize(75,50)
+  .setLabel("Brick Sort");
+  
+  IS = cp5.addButton("IS")
+  .setValue(0)
+  .setPosition(75,0)
+  .setSize(75,50)
+  .setLabel("Insertion Sort");
+  
+  BubbleS = cp5.addButton("BubbleS")
+  .setValue(0)
+  .setPosition(150,0)
+  .setSize(75,50)
+  .setLabel("Bubble Sort");
+  
+  SS = cp5.addButton("SS")
+  .setValue(0)
+  .setPosition(225,0)
+  .setSize(75,50)
+  .setLabel("Selection Sort");
+  
+  RESET = cp5.addButton("RESET")
+  .setValue(0)
+  .setPosition(945,0)
+  .setSize(75,50);
+  
   frameRate(60);
   stroke(12);
   size(1020, 500);
@@ -20,12 +65,14 @@ void setup() {
 
 void draw() {
   background(255);
-   scale(1, -1);
+  push();
+    scale(1, -1);
   translate(0, -height);
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
     rect(10 * i + 10, 10, 5, numList[i] * 2);
   }
+ if(ISclick == true){
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
     if (cur != numList.length) {
       fill(255, 10, 10);
@@ -37,6 +84,8 @@ void draw() {
       cur = 0; //resets the red rectangle to 0;
     }
   }
+ }
+  pop();
   delay(25);
 }
 
@@ -68,4 +117,12 @@ private int[] InsertionSort(int numList[]) {
     }
   }
   return numList;
+}
+
+private void IS(){
+if(ISclick == false){
+ISclick = true; 
+}else{
+  ISclick = false;
+}
 }
