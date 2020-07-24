@@ -1,9 +1,10 @@
-int maxSize = 1000;
+int maxSize = 100;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
 int cur = 0;
 int indexSwap = -1;
+int mx = 2;
 
 void setup() {
   /*
@@ -15,7 +16,7 @@ void setup() {
   }
   frameRate(60);
   //stroke(12);
-  size(1020, 500);
+  size(1000, 1000);
 }
 
 void draw() {
@@ -23,7 +24,7 @@ void draw() {
 
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
-    rect((width/numList.length) * i, 5, (width/numList.length), numList[i] * 4);
+    rect((width/numList.length) * i, 500, (width/numList.length), numList[i] * mx);
   }
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
     if (cur < numList.length ) {
@@ -31,17 +32,16 @@ void draw() {
       if (indexSwap >= 0) {
         swap();
         fill(255, 0, 0);
-        rect((width/numList.length) * cur, 5, (width/numList.length), numList[indexSwap] * 4);
-        rect((width/numList.length) * indexSwap, 5, (width/numList.length), numList[cur] * 4);
+        rect((width/numList.length) * cur, 500, (width/numList.length), numList[indexSwap] * mx);
+        rect((width/numList.length) * indexSwap, 500, (width/numList.length), numList[cur] * mx);
         //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
       }
     }
   }
   cur++;
-  println(cur);
   indexSwap = -1;
 
-  //delay(100);
+  delay(25);
 }
 
 /**
