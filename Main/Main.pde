@@ -4,12 +4,16 @@ int[] numList = new int[maxSize];
 
 void setup() {
   for(int i = 0; i < numList.length; i++){
-     numList[i] = (int)random(100);
+  
   }
 }
 
 void draw() {
+<<<<<<< HEAD
   //This is a change
+=======
+
+>>>>>>> parent of 7502e78... Update Main.pde
 }
 
 private void swap(int[] a, int b, int c) {
