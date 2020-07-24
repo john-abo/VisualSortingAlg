@@ -26,7 +26,7 @@ void draw() {
     rect(10 * i + 10, 10, 5, numList[i] * 2);
   }
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
-  println("Not sorted yet");
+    println("Not sorted yet");
     if (cur < numList.length ) {
       println("Cur is shorter than length");
       selectionSort(numList, cur);
@@ -34,8 +34,8 @@ void draw() {
         println("swapping");
         swap();
         fill(255, 0, 0);
-        rect(10 * cur + 10, 10, 5, numList[cur] * 2);
-        rect(10 * indexSwap + 10, 10, 5, numList[indexSwap] + 2);
+        rect(10 * indexSwap + 10, 10, 5, numList[cur] * 2);
+        rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
       }
     }
   }
