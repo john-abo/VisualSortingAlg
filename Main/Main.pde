@@ -10,7 +10,7 @@ void setup() {
   }
   frameRate(60);
   stroke(12);
-  size(1000, 500);
+  size(1000,500);
   
 }
 
@@ -18,11 +18,8 @@ void draw() {
   background(255);
  
  for(int i = 0; i < numList.length; i++){
- line(linePx, numList[i], linePx, 5);
- stroke(126);
- linePx+=2;
+ rect(10 * i, 10, 10, numList[i] * 2);
  }
- linePx = 1;
  
 }
 
