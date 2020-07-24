@@ -22,6 +22,7 @@ int LOG_SWAP;
 int click;
 int indexSwap = -1;
 int mx = 2;
+int speed = 0;
 void setup() {
   /*
   initial population of the array
@@ -60,6 +61,11 @@ void setup() {
     .setPosition(945, 0)
     .setSize(75, 50);
 
+  cp5.addSlider("speed")
+  .setPosition(0, 100)
+  .setRange(0,100);
+  
+  
   frameRate(60);
   stroke(12);
   size(1020, 500);
@@ -67,9 +73,12 @@ void setup() {
 
 void draw() {
   background(255);
+  fill(50);
+  text("Speed slider", 0, 98);
   push();
   scale(1, -1);
   translate(0, -height);
+  
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
     rect(10 * i + 10, 10, 5, numList[i] * 2);
@@ -145,7 +154,7 @@ void draw() {
   }
 
   pop();
-  delay(25);
+  delay(speed);
 }
 
 /**
@@ -243,7 +252,7 @@ public void BubbleS() {
 }
 
 public void RESET() {
-  println("resetting");
+ // println("resetting");
   SSclick = false;
   ISclick = false;
   BrickSclick = false;
