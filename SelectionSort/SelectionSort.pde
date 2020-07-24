@@ -10,7 +10,6 @@ void setup() {
   frameRate(60);
   noStroke();
   size(1350, 500);
-
   maxSize = width;
   numList = new int[maxSize];
 
@@ -47,7 +46,6 @@ void draw() {
   cur++;
   indexSwap = -1;
 
-  delay(0);
 }
 
 /**

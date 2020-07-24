@@ -97,14 +97,14 @@ void draw() {
   
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
-    rect(10 * i + 10, 10, 5, numList[i] * 2);
+    rect(((width/numList.length) * i), 0, (width/numList.length), numList[i] * mx);
   }
 
   if (ISclick == true) {
     if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
       if (cur != numList.length) {
         fill(255, 10, 10);
-        rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+        rect(((width/numList.length) * cur) + 2, 10, (width/numList.length), numList[cur] * mx);
         cur++;//moves over to the next 
         InsertionSort(numList);
         cur = LOG_SWAP; //sets the red rectangle where the index left off
@@ -121,8 +121,9 @@ void draw() {
         if (indexSwap >= 0) {
           swap();
           fill(255, 0, 0);
-          rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
-          rect(10 * indexSwap + 10, 10, 5, numList[cur] * 2);
+          fill(255, 0, 0);
+        rect((width/numList.length) * cur, 0, (width/numList.length), numList[indexSwap] * mx);
+        rect((width/numList.length) * indexSwap, 0, (width/numList.length), numList[cur] * mx);
           //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
         }
       }else{
@@ -137,7 +138,7 @@ void draw() {
     if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
       if (cur != numList.length-1 && cur != 100) {
         fill(255, 10, 10);
-        rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+        rect(((width/numList.length) * cur) + 10, 10, (width/numList.length), numList[cur] * mx);
         if (numList[cur] > numList[cur+1]) {
           BubbleSort(numList);
           cur+=2;//moves over to the next
@@ -158,7 +159,7 @@ void draw() {
     if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
       if (cur != numList.length-1) {
         fill(255, 10, 10);
-        rect(10 * cur + 10, 10, 5, numList[cur] * 2);
+        rect(((width/numList.length) * cur) + 10, 10, (width/numList.length), numList[cur] * mx);
         if (numList[cur] > numList[cur+1]) {
           BubbleSort(numList);
           cur++;//moves over to the next
