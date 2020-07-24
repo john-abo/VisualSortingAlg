@@ -20,7 +20,8 @@ void setup() {
 
 void draw() {
   background(255);
-
+   scale(1, -1);
+  translate(0, -height);
   for (int i = 0; i < numList.length; i++) {
     fill(0, 0, 0);
     rect(10 * i + 10, 10, 5, numList[i] * 2);
