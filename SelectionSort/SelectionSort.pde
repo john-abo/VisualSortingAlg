@@ -3,7 +3,7 @@ int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
 int cur = 0;
-int LOG_SWAP;
+int indexSwap = -1;
 
 void setup() {
   /*
@@ -28,11 +28,14 @@ void draw() {
   if (checkIfSorted(numList) == false) { //checks if the list is fully sorted
     if (cur < numList.length) {
       cur++;
-      println(cur);
+      selectionSort(numList, cur);
     } else {
       cur = 0; //resets the red rectangle to 0;
     }
   }
+  
+  
+  
   delay(25);
 }
 
@@ -53,15 +56,10 @@ private boolean checkIfSorted(int numList[]) {
 /**
 InsertionSort Algorithm
 */
-private int[] selection(int numList[], int swapWith) {
+private void selection(int numList[], int startAt) {
   for (int i = 0; i < numList.length; i++) {
     if (numList[i] > numList[i+1] && i != 100) { //if i is not 100 and the current indexed value is greater then the next one they swap positions
       LOG_SWAP = i; //logs the current index that needs to be swapped
-      int prev = numList[swapWith];
-      numList[swapWith] = numList[i];
-      numList[i] = prev;
-      return numList;
     }
   }
-  return numList;
 }
