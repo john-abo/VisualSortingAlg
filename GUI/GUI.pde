@@ -6,12 +6,14 @@ Button IS;
 Button BrickS;
 Button BubbleS;
 Button RESET;
+Button CHANGE;
 
 boolean SSclick = false;
 boolean ISclick = false;
 boolean BrickSclick = false;
 boolean BubbleSclick = false;
 boolean RESETclick = false;
+boolean Changeclick = false;
 
 int maxSize = 100;
 int minSize = 1;
@@ -23,6 +25,7 @@ int click;
 int indexSwap = -1;
 int mx = 2;
 int speed = 0;
+int size = 0;
 void setup() {
   /*
   initial population of the array
@@ -59,13 +62,25 @@ void setup() {
   RESET = cp5.addButton("RESET")
     .setValue(0)
     .setPosition(945, 0)
+    .setSize(75, 50)
+    .setLabel("RESET - 100");
+    
+    CHANGE = cp5.addButton("CHANGE")
+    .setValue(0)
+    .setPosition(870, 0)
     .setSize(75, 50);
 
   cp5.addSlider("speed")
   .setPosition(0, 100)
   .setRange(0,100);
   
+  cp5.addSlider("size")
+  .setPosition(921, 100)
+  .setRange(10,175);
   
+  
+  
+  RESET();
   frameRate(60);
   stroke(12);
   size(1020, 500);
@@ -75,6 +90,7 @@ void draw() {
   background(255);
   fill(50);
   text("Speed slider", 0, 98);
+  text("Max height", 921, 98);
   push();
   scale(1, -1);
   translate(0, -height);
@@ -109,6 +125,8 @@ void draw() {
           rect(10 * indexSwap + 10, 10, 5, numList[cur] * 2);
           //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
         }
+      }else{
+      //cur = 0;
       }
     }
     cur++;
@@ -152,6 +170,7 @@ void draw() {
       }
     }
   }
+  
 
   pop();
   delay(speed);
@@ -219,7 +238,8 @@ private void swap() {
 }
 
 public void IS() {
-  RESET();
+  softReset();
+  
   ISclick = true;
   SSclick = false;
   BrickSclick = false;
@@ -227,7 +247,8 @@ public void IS() {
 }
 
 public void SS() {
-  RESET();
+  softReset();
+  
   ISclick = false;
   SSclick = true;
   BrickSclick = false;
@@ -235,7 +256,8 @@ public void SS() {
 }
 
 public void BrickS() {
-  RESET();
+  softReset();
+  
   ISclick = false;
   SSclick = false;
   BrickSclick = true;
@@ -243,12 +265,30 @@ public void BrickS() {
 }
 
 public void BubbleS() {
-
-  RESET();
+  softReset();
+  
   ISclick = false;
   SSclick = false;
   BrickSclick = false;
   BubbleSclick = true;
+}
+
+public void CHANGE(){
+  softReset();
+numList = new int[maxSize];
+ for (int i = 0; i < numList.length; i++) {
+    int r = (int)random(0, size);
+    numList[i] = r;
+  }
+}
+
+public void softReset(){
+  SSclick = false;
+  ISclick = false;
+  BrickSclick = false;
+  BubbleSclick = false;
+  Changeclick = false;
+  cur = 0;
 }
 
 public void RESET() {
@@ -257,6 +297,7 @@ public void RESET() {
   ISclick = false;
   BrickSclick = false;
   BubbleSclick = false;
+  Changeclick = false;
   maxSize = 100;
   minSize = 1;
   linePx = 1;
