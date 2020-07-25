@@ -197,7 +197,6 @@ void draw() {
   if (BogoClick == true) {
     if (checkIfSorted(numListA) == false) { //checks if the list is fully sorted
       Collections.shuffle(numListA);
-      println(numListA);
     }
   }
 
