@@ -9,7 +9,8 @@ int mx = 1;
 void setup() {
   frameRate(60);
   noStroke();
-  size(1350, 500);
+  //size(1350, 500);
+  fullScreen();
   maxSize = width;
   numList = new int[maxSize];
 
@@ -46,6 +47,7 @@ void draw() {
   cur++;
   indexSwap = -1;
 
+  delay(5);
 }
 
 /**

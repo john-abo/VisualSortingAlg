@@ -19,7 +19,7 @@ boolean RESETclick = false;
 boolean Changeclick = false;
 
 int maxSize = 100;
-int BogoMax = 8;
+int BogoMax = 7;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
