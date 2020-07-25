@@ -1,6 +1,6 @@
 import java.util.Collections;
 
-int maxSize = 2;
+int maxSize = 5;
 int minSize = 1;
 int linePx = 1;
 
@@ -14,7 +14,7 @@ void setup() {
   frameRate(60);
   noStroke();
   size(1350, 500);
-  maxSize = 7;
+  maxSize = 5;
 
   for(int i = 0; i < maxSize; i++) {
     numList.add((int)random(0,height));

@@ -1,10 +1,12 @@
-import controlP5.*;
+import controlP5.*; //<>//
+import java.util.Collections;
 
 ControlP5 cp5;
 Button SS;
 Button IS;
 Button BrickS;
 Button BubbleS;
+Button Bogo;
 Button RESET;
 Button CHANGE;
 
@@ -12,13 +14,16 @@ boolean SSclick = false;
 boolean ISclick = false;
 boolean BrickSclick = false;
 boolean BubbleSclick = false;
+boolean BogoClick = false;
 boolean RESETclick = false;
 boolean Changeclick = false;
 
 int maxSize = 100;
+int BogoMax = 8;
 int minSize = 1;
 int linePx = 1;
 int[] numList = new int[maxSize];
+ArrayList<Integer> numListA = new ArrayList<Integer>();
 int cur = 0;
 int LOG_SWAP;
 int click;
@@ -33,6 +38,10 @@ void setup() {
   for (int i = 0; i < numList.length; i++) {
     int r = (int)random(0, 100);
     numList[i] = r;
+  }
+  numListA = new ArrayList<Integer>();
+  for (int i = 0; i < BogoMax; i++) {
+    numListA.add((int)random(0, 100));
   }
   cp5 = new ControlP5(this);
   BrickS = cp5.addButton("BrickS")
@@ -59,27 +68,33 @@ void setup() {
     .setSize(75, 50)
     .setLabel("Selection Sort");
 
+  Bogo = cp5.addButton("Bogo")
+    .setValue(0)
+    .setPosition(300, 0)
+    .setSize(75, 50)
+    .setLabel("Bogo Sort");
+
   RESET = cp5.addButton("RESET")
     .setValue(0)
     .setPosition(945, 0)
     .setSize(75, 50)
     .setLabel("RESET - 100");
-    
-    CHANGE = cp5.addButton("CHANGE")
+
+  CHANGE = cp5.addButton("CHANGE")
     .setValue(0)
     .setPosition(870, 0)
     .setSize(75, 50);
 
   cp5.addSlider("speed")
-  .setPosition(0, 100)
-  .setRange(0,100);
-  
+    .setPosition(0, 100)
+    .setRange(0, 100);
+
   cp5.addSlider("size")
-  .setPosition(921, 100)
-  .setRange(10,175);
-  
-  
-  
+    .setPosition(921, 100)
+    .setRange(10, 175);
+
+
+
   RESET();
   frameRate(60);
   stroke(12);
@@ -94,10 +109,17 @@ void draw() {
   push();
   scale(1, -1);
   translate(0, -height);
-  
-  for (int i = 0; i < numList.length; i++) {
-    fill(0, 0, 0);
-    rect(((width/numList.length) * i), 0, (width/numList.length), numList[i] * mx);
+
+  if (BogoClick == false) {
+    for (int i = 0; i < numList.length; i++) {
+      fill(0, 0, 0);
+      rect(((width/numList.length) * i), 0, (width/numList.length), numList[i] * mx);
+    }
+  } else {
+    for (int i = 0; i < BogoMax; i++) {
+      fill(0, 0, 0);
+      rect((width/BogoMax) * i, 0, (width/BogoMax), numListA.get(i) * mx);
+    }
   }
 
   if (ISclick == true) {
@@ -122,12 +144,12 @@ void draw() {
           swap();
           fill(255, 0, 0);
           fill(255, 0, 0);
-        rect((width/numList.length) * cur, 0, (width/numList.length), numList[indexSwap] * mx);
-        rect((width/numList.length) * indexSwap, 0, (width/numList.length), numList[cur] * mx);
+          rect((width/numList.length) * cur, 0, (width/numList.length), numList[indexSwap] * mx);
+          rect((width/numList.length) * indexSwap, 0, (width/numList.length), numList[cur] * mx);
           //rect(10 * cur + 10, 10, 5, numList[indexSwap] * 2);
         }
-      }else{
-      //cur = 0;
+      } else {
+        //cur = 0;
       }
     }
     cur++;
@@ -171,7 +193,13 @@ void draw() {
       }
     }
   }
-  
+
+  if (BogoClick == true) {
+    if (checkIfSorted(numListA) == false) { //checks if the list is fully sorted
+      Collections.shuffle(numListA);
+      println(numListA);
+    }
+  }
 
   pop();
   delay(speed);
@@ -181,14 +209,27 @@ void draw() {
  navigates through the array, and if it's good to go then it returns true
  */
 private boolean checkIfSorted(int numList[]) {
-  for (int i = 0; i < numList.length; i++) {
-    if (i != 0) {
-      if (numList[i-1] > numList[i]) {
-        return false;
-      }
+
+  for (int i = 1; i < numList.length; i++) {
+    //if (i != 0) {
+    if (numList[i-1] > numList[i]) {
+      return false;
     }
+    //}
   }
   return true;
+}
+
+private boolean checkIfSorted(ArrayList<Integer> numListA) {
+
+  for (int i = 1; i < numListA.size(); i++) {
+    //if (i != 0) {
+    if (numListA.get(i-1) > numListA.get(i)) {
+      return false;
+    }
+    //}
+  }
+  return true; //<>//
 }
 
 /**
@@ -240,7 +281,7 @@ private void swap() {
 
 public void IS() {
   softReset();
-  
+
   ISclick = true;
   SSclick = false;
   BrickSclick = false;
@@ -249,55 +290,73 @@ public void IS() {
 
 public void SS() {
   softReset();
-  
+
   ISclick = false;
   SSclick = true;
   BrickSclick = false;
   BubbleSclick = false;
+  BogoClick = false;
 }
 
 public void BrickS() {
   softReset();
-  
+
   ISclick = false;
   SSclick = false;
   BrickSclick = true;
   BubbleSclick = false;
+  BogoClick = false;
 }
 
 public void BubbleS() {
   softReset();
-  
+
   ISclick = false;
   SSclick = false;
   BrickSclick = false;
   BubbleSclick = true;
+  BogoClick = false;
 }
 
-public void CHANGE(){
+public void Bogo() {
+
+  ISclick = false;
+  SSclick = false;
+  BrickSclick = false;
+  BubbleSclick = false;
+  BogoClick = true;
+}
+
+public void CHANGE() {
   softReset();
-numList = new int[maxSize];
- for (int i = 0; i < numList.length; i++) {
+  numList = new int[maxSize];
+  for (int i = 0; i < numList.length; i++) {
     int r = (int)random(0, size);
     numList[i] = r;
   }
+  numListA = new ArrayList<Integer>();
+  for (int i = 0; i < BogoMax; i++) {
+    numListA.add((int)random(0, size));
+  }
 }
 
-public void softReset(){
+public void softReset() {
   SSclick = false;
   ISclick = false;
   BrickSclick = false;
   BubbleSclick = false;
+  BogoClick = false;
   Changeclick = false;
   cur = 0;
 }
 
 public void RESET() {
- // println("resetting");
+  // println("resetting");
   SSclick = false;
   ISclick = false;
   BrickSclick = false;
   BubbleSclick = false;
+  BogoClick = false;
   Changeclick = false;
   maxSize = 100;
   minSize = 1;
@@ -309,5 +368,9 @@ public void RESET() {
   for (int i = 0; i < numList.length; i++) {
     int r = (int)random(0, 100);
     numList[i] = r;
+  }
+  numListA = new ArrayList<Integer>();
+  for (int i = 0; i < BogoMax; i++) {
+    numListA.add((int)random(0, 100));
   }
 }
